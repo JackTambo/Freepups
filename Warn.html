@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notification</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      overflow: hidden; /* Prevent scrolling */
+    }
+
+    .message {
+      font-size: 48px;
+      color: #333;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+      position: absolute;
+    }
+
+    .message.show {
+      opacity: 1;
+      animation: fadeInOut 4s forwards;
+    }
+
+    @keyframes fadeInOut {
+      0% { opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    .button {
+      display: none;
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      color: #fff;
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="message">You Made a Mistake</div>
+  <a href="https://freepups.org/Fight.html" class="button" id="action-button">Face the consequences</a>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const message = document.querySelector('.message');
+      const button = document.getElementById('action-button');
+
+      message.classList.add('show');
+      
+      // Show the button after the message fades out
+      message.addEventListener('animationend', () => {
+        button.style.display = 'inline-block';
+      });
+    });
+  </script>
+</body>
+</html>

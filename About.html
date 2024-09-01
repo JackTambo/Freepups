@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Centered Content Page</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'VT323', monospace; /* Apply Google Font */
+      background-color: #d4edda; /* Light green background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      /* Removed overflow: hidden to allow scrolling */
+    }
+
+    .container {
+      background-color: #ffffff; /* White background for the content box */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 600px; /* Added max-width to ensure responsiveness */
+      margin: 0 auto; /* Center container horizontally */
+    }
+
+    img {
+      width: 300px;
+      height: auto;
+      margin: 20px 0;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin: 0;
+      color: #155724; /* Dark green for the heading */
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      color: #6c757d; /* Grayish green for the subheading */
+    }
+
+    .button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      color: #ffffff;
+      background-color: #28a745; /* Green button */
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    .button:hover {
+      background-color: #218838; /* Darker green on hover */
+    }
+  </style>
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&display=swap">
+</head>
+<body>
+  <div class="container">
+    <img src="me.jpg" alt="Centered Image">
+    <h1>My life’s story</h1>
+    <h2>My name is Tambourine and I created this site beacuse I can. <b>zero</b></h2>
+    <a href="https://freepups.org/index.html" class="button">Go to Homepage</a>
+  </div>
+</body>
+</html>

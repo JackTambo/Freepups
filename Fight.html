@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boss Fight</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Disable scrolling */
+            touch-action: none; /* Disable zooming on touch devices */
+            user-select: none; /* Prevent text selection */
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        img {
+            width: 200px;
+            border-radius: 10px;
+            transition: transform 0.1s;
+        }
+        .shake {
+            animation: shake 0.5s;
+            animation-iteration-count: 1;
+        }
+        @keyframes shake {
+            0% { transform: translate(0px, 0px); }
+            25% { transform: translate(5px, 0px); }
+            50% { transform: translate(-5px, 0px); }
+            75% { transform: translate(5px, 0px); }
+            100% { transform: translate(0px, 0px); }
+        }
+        .explode {
+            animation: explode 0.8s forwards;
+        }
+        @keyframes explode {
+            0% { transform: scale(1) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.5) rotate(45deg); opacity: 0.7; }
+            100% { transform: scale(2) rotate(90deg); opacity: 0; }
+        }
+        .health-bar {
+            width: 90%;
+            max-width: 600px;
+            height: 25px;
+            margin: 10px 0;
+            background-color: grey;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+        .health-bar .red {
+            width: 100%;
+            height: 100%;
+            background-color: red;
+            border-radius: 12px;
+            position: absolute;
+        }
+        .health-bar .green {
+            width: 100%;
+            height: 100%;
+            background-color: green;
+            border-radius: 12px;
+            position: absolute;
+        }
+        .attack-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: blue;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .defeat-counter {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <audio id="background-audio" href="https://sound.peal.io/ps/audios/000/035/149/original/youtube_35149.mp3?1566803743" loop autoplay></audio>
+    <h1>Boss Fight</h1>
+    <div class="container">
+        <div class="defeat-counter">Defeats Remaining: <span id="defeat-count">3</span></div>
+        <img id="boss-image" src="404.png" alt="Centered Image">
+        <div class="health-bar">
+            <div class="red" id="boss-health"></div>
+        </div>
+        <div class="health-bar">
+            <div class="green" id="user-health"></div>
+        </div>
+        <button class="attack-button" onclick="attack()">Attack</button>
+    </div>
+
+    <script>
+        let userHealth = 100; // User health starts at 100%
+        let bossHealth = 100; // Boss health starts at 100%
+        let defeatsRemaining = 3; // Number of times boss must be defeated
+
+        // Update defeat counter display
+        function updateDefeatCounter() {
+            document.getElementById('defeat-count').textContent = defeatsRemaining;
+        }
+
+        // Function to reduce user health by 10% every 1.5 seconds
+        setInterval(() => {
+            if (userHealth > 0) {
+                userHealth -= 10;
+                document.getElementById('user-health').style.width = userHealth + '%';
+            }
+        }, 1500);
+
+        // Function to handle the attack on the boss
+        function attack() {
+            if (bossHealth > 0) {
+                bossHealth -= 7;
+                document.getElementById('boss-health').style.width = bossHealth + '%';
+
+                // Make the image shake
+                const bossImage = document.getElementById('boss-image');
+                bossImage.classList.add('shake');
+
+                // Remove the shake class after the animation ends
+                setTimeout(() => {
+                    bossImage.classList.remove('shake');
+                }, 500); // Matches the duration of the shake animation
+
+                // If boss health reaches 0%, trigger explosion and handle defeat
+                if (bossHealth <= 0) {
+                    bossImage.classList.add('explode');
+
+                    // Update defeat counter
+                    defeatsRemaining--;
+                    updateDefeatCounter();
+
+                    // Check if more defeats are needed or redirect
+                    if (defeatsRemaining <= 0) {
+                        setTimeout(() => {
+                            window.location.href = 'https://freepups.org/index.html';
+                        }, 800); // Delay to ensure explosion animation completes
+                    } else {
+                        // Reset boss health for the next round
+                        setTimeout(() => {
+                            bossHealth = 100;
+                            document.getElementById('boss-health').style.width = bossHealth + '%';
+                            bossImage.classList.remove('explode');
+                        }, 1000); // Delay before resetting health
+                    }
+                }
+            }
+        }
+
+        // Initialize defeat counter
+        updateDefeatCounter();
+    </script>
+</body>
+</html>
